@@ -27,6 +27,15 @@ jobs:
         pip install --upgrade pip
         pip install "buildozer==1.5.0" "cython<3.0.0"
 
+    # SİHİRLİ ADIM: Lisansları otomatik olarak kabul ediyoruz
+    - name: Auto-accept Android SDK Licenses
+      run: |
+        mkdir -p ~/.android
+        touch ~/.android/repositories.cfg
+        mkdir -p ~/.buildozer/android/platform/android-sdk/licenses
+        echo -e "\n89b21e13b1e527b61317ab2933d114d66835161b\n24333f8a63b6825ec31555be75254c0041821131\n5c256910979695f1ab221477431cdba743a56a17\nc310b4a15a1664d5b46d33b04c3518337140a16d\n111b09a1741a985ba0e260cc3fd55832a890787e\n84831b9409646a918e30573bab4c9c91346d8abd" > ~/.buildozer/android/platform/android-sdk/licenses/android-sdk-license
+        echo -e "\n84831b9409646a918e30573bab4c9c91346d8abd" > ~/.buildozer/android/platform/android-sdk/licenses/android-sdk-preview-license
+
     - name: Build with Buildozer
       run: |
         buildozer android debug
@@ -38,4 +47,3 @@ jobs:
       with:
         name: package
         path: bin/*.apk
-
